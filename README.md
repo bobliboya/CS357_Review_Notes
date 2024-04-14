@@ -30,7 +30,7 @@ Topics and important information in this note set are from
 | 13         | Markov Chains                    |                                                              |            |
 | 14         | Finite Difference Methods        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/14_Finite_Difference_Methods.pdf) | New Added  |
 | 15         | Nonlinear System of Equations    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/15_Solving_Nonlinear_Equations.pdf) | New Added  |
-| 16         | Optimization                     |                                                              |            |
+| 16         | Optimization                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/16_Optimization.pdf) | New Added  |
 | 17         | Linear Least Squares             |                                                              |            |
 | 18         | Singular Value Decomposition     |                                                              |            |
 | 19         | Principal Component Analysis     |                                                              |            |
