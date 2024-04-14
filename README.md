@@ -15,8 +15,8 @@ Topics and important information in this note set are from
 
 | Module No. | Topic                            | Link                                                         | Change Log |
 | ---------- | -------------------------------- | ------------------------------------------------------------ | ---------- |
-| 01         | Introduction                     |                                                              |            |
-| 02         | Python                           |                                                              |            |
+| 01         | Introduction                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/01_Introduction.pdf) | New Added  |
+| 02         | Python                           | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/02_Python.pdf) | New Added  |
 | 03         | Error & Big-O                    |                                                              |            |
 | 04         | Floating Point                   |                                                              |            |
 | 05         | Rounding & Cancellation          |                                                              |            |
@@ -28,9 +28,9 @@ Topics and important information in this note set are from
 | 11         | Conditioning                     |                                                              |            |
 | 12         | Eigenvalues                      |                                                              |            |
 | 13         | Markov Chains                    |                                                              |            |
-| 14         | Finite Difference Methods        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/14_Finite_Difference_Methods.pdf) | New Added  |
-| 15         | Nonlinear System of Equations    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/15_Solving_Nonlinear_Equations.pdf) | New Added  |
-| 16         | Optimization                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/16_Optimization.pdf) | New Added  |
+| 14         | Finite Difference Methods        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/14_Finite_Difference_Methods.pdf) |            |
+| 15         | Nonlinear System of Equations    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/15_Solving_Nonlinear_Equations.pdf) |            |
+| 16         | Optimization                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/16_Optimization.pdf) |            |
 | 17         | Linear Least Squares             |                                                              |            |
 | 18         | Singular Value Decomposition     |                                                              |            |
 | 19         | Principal Component Analysis     |                                                              |            |
