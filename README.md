@@ -19,8 +19,8 @@ Topics and important information in this note set are from
 | ---------- | -------------------------------- | ------------------------------------------------------------ | ---------- |
 | 01         | Introduction                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/01_Introduction.pdf) |            |
 | 02         | Python                           | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/02_Python.pdf) |            |
-| 03         | Error & Big-O                    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/03_Errors_and_Big_O.pdf) | New Added  |
-| 04         | Floating Point                   |                                                              |            |
+| 03         | Error & Big-O                    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/03_Errors_and_Big_O.pdf) |    |
+| 04         | Floating Point                   |  [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/04_Floating_Points.pdf)                                                            |New Added   |
 | 05         | Rounding & Cancellation          |                                                              |            |
 | 06         | Taylor Series                    |                                                              |            |
 | 07         | Randomness & Monte Carlo Methods |                                                              |            |
