@@ -1,6 +1,8 @@
 # CS357_Review_Notes
 **Review Notes for CS357: Numerical Methods**
 
+**This note set is recommended for quiz and exam review, reading the textbook and watching the lecture are better during the semester.**
+
 ## Sources of Material
 
 Topics and important information in this note set are from
@@ -15,9 +17,9 @@ Topics and important information in this note set are from
 
 | Module No. | Topic                            | Link                                                         | Change Log |
 | ---------- | -------------------------------- | ------------------------------------------------------------ | ---------- |
-| 01         | Introduction                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/01_Introduction.pdf) | New Added  |
-| 02         | Python                           | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/02_Python.pdf) | New Added  |
-| 03         | Error & Big-O                    |                                                              |            |
+| 01         | Introduction                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/01_Introduction.pdf) |            |
+| 02         | Python                           | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/02_Python.pdf) |            |
+| 03         | Error & Big-O                    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/03_Errors_and_Big_O.pdf) | New Added  |
 | 04         | Floating Point                   |                                                              |            |
 | 05         | Rounding & Cancellation          |                                                              |            |
 | 06         | Taylor Series                    |                                                              |            |
