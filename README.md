@@ -18,13 +18,13 @@ Topics and important information in this note set are from
 | Module No. | Topic                            | Link                                                         | Change Log |
 | ---------- | -------------------------------- | ------------------------------------------------------------ | ---------- |
 | 01         | Introduction                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/01_Introduction.pdf) |            |
-| 02         | Python                           | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/02_Python.pdf) | Updated |
+| 02         | Python                           | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/02_Python.pdf) |  |
 | 03         | Error & Big-O                    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/03_Errors_and_Big_O.pdf) |    |
 | 04         | Floating Point                   |  [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/04_Floating_Points.pdf)                                                            |   |
 | 05         | Rounding & Cancellation          | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/05_Rounding.pdf) |  |
 | 06         | Taylor Series                    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/06_Taylor_Series.pdf) |  |
-| 07         | Randomness & Monte Carlo Methods | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/07_RNG_and_Monte_Carlo.pdf) | New Added |
-| 08         | Vectors, Matrices & Norms        |                                                              |            |
+| 07         | Randomness & Monte Carlo Methods | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/07_RNG_and_Monte_Carlo.pdf) |  |
+| 08         | Vectors, Matrices & Norms        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/08_Vectors_Matrices_and_Norms.pdf) | New Added |
 | 09         | Linear System of Equations       |                                                              |            |
 | 10         | Sparse Matrices                  |                                                              |            |
 | 11         | Conditioning                     |                                                              |            |
