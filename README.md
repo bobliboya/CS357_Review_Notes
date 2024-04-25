@@ -34,6 +34,6 @@ Topics and important information in this note set are from
 | 15         | Nonlinear System of Equations    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/15_Solving_Nonlinear_Equations.pdf) |            |
 | 16         | Optimization                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/16_Optimization.pdf) |            |
 | 17         | Linear Least Squares             | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/17_Least_Square_Fitting.pdf) | New Added |
-| 18         | Singular Value Decomposition     |                                                              | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/18_Singular_Value_Decompsitions.pdf)New Added |
+| 18         | Singular Value Decomposition     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/18_Singular_Value_Decompsitions.pdf)                                                             | New Added |
 | 19         | Principal Component Analysis     |                                                              |            |
 
