@@ -24,7 +24,7 @@ Topics and important information in this note set are from
 | 05         | Rounding & Cancellation          | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/05_Rounding.pdf) |  |
 | 06         | Taylor Series                    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/06_Taylor_Series.pdf) |  |
 | 07         | Randomness & Monte Carlo Methods | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/07_RNG_and_Monte_Carlo.pdf) |  |
-| 08         | Vectors, Matrices & Norms        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/08_Vectors_Matrices_and_Norms.pdf) | New Added |
+| 08         | Vectors, Matrices & Norms        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/08_Vectors_Matrices_and_Norms.pdf) |  |
 | 09         | Linear System of Equations       |                                                              |            |
 | 10         | Sparse Matrices                  |                                                              |            |
 | 11         | Conditioning                     |                                                              |            |
@@ -33,7 +33,7 @@ Topics and important information in this note set are from
 | 14         | Finite Difference Methods        | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/14_Finite_Difference_Methods.pdf) |            |
 | 15         | Nonlinear System of Equations    | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/15_Solving_Nonlinear_Equations.pdf) |            |
 | 16         | Optimization                     | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/16_Optimization.pdf) |            |
-| 17         | Linear Least Squares             |                                                              |            |
-| 18         | Singular Value Decomposition     |                                                              |            |
+| 17         | Linear Least Squares             | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/17_Least_Square_Fitting.pdf) | New Added |
+| 18         | Singular Value Decomposition     |                                                              | [Link](https://github.com/bobliboya/CS357_Review_Notes/blob/main/18_Singular_Value_Decompsitions.pdf)New Added |
 | 19         | Principal Component Analysis     |                                                              |            |
 
