@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem,minted}
+\usepackage{indentfirst}
+\usepackage[version=4]{mhchem}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 08 Vectors, Matrices and Norms\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{Vector:} An array of numbers that represents both a magnitude and a direction. A $n$-dimensional vector has $n$ elements. A Vector is an element if a vector space.
+
+\medskip
+\noindent \textbf{Vector Space:} A Vector Space is a set $\boldsymbol{V}$ of vectors with elements in the field $\boldsymbol{F}$. The elements in the field $\boldsymbol{F}$ are called scalars. There are 2 operation defined:
+    \begin{enumerate}
+        \item Closed under vector addition: $\forall \mathbf{v},\mathbf{w} \in V$, $\mathbf{v} + \mathbf{w} \in V$.
+        \item Closed under scalar multiplication: $\forall \alpha \in F$, $\mathbf{v} \in V$, $\alpha \mathbf{v} \in V$.
+    \end{enumerate}
+Moreover, the following properties hold:
+    \begin{enumerate}
+        \item Associativity (Vector): $\forall \mathbf{u}, \mathbf{v}, \mathbf{w} \in V$, $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v}+\mathbf{w})$.
+        \item ``Zero" vector: There exists a zero vector $\vec{0}$, such that $\forall \mathbf{u} \in V$, $\vec{0} + \mathbf{u} = \mathbf{u}$.
+        \item Additive inverse: $\forall \mathbf{u} \in V$, there exists $-\mathbf{u} \in V$, such that $\mathbf{u} + (-\mathbf{u}) = \vec{0}$.
+        \item Associativity (scalar): $\forall \alpha, \beta \in F, \mathbf{u} \in V$, $(\alpha \beta) \mathbf{u} = \alpha (\beta \mathbf{u})$.
+        \item Distributivity: $\forall \alpha, \beta \in F, \mathbf{u} \in V$, $(\alpha + \beta) \mathbf{u} = \alpha \mathbf{u} + \beta \mathbf{u}$.
+        \item Unitarity: $\forall \mathbf{u} \in V$.
+    \end{enumerate}
+
+\medskip
+\noindent \textbf{Linear combination and liearly independence:}
+
+$$\mathbf{x} = c_1\mathbf{v}_1+ c_2\mathbf{v}_2 + \dots + c_n\mathbf{v}_n$$
+
+Where $\mathbf{v}_1$, $\mathbf{v}_2$, ... $\mathbf{v}_n$ are all vectors in the vector space $V$, and $c_1$, $c_2$, ... $c_n$ are constants, then we call $\mathbf{x}$ is a linear combination of $\mathbf{v_1}$, $\mathbf{v}_2$, ... $\mathbf{v}_n$.
+
+If any vector $\mathbf{x} \in V$ can be written in the form of the linear combination with uniquely defined scalar $c_1$, $c_2$, ... $c_n$, then we call $\mathbf{v}_1$, $\mathbf{v}_2$, ... $\mathbf{v}_n$ a \textbf{basis} of $V$. The size $n$ of the basis is called the \textbf{dimension} of $V$. The dimension of $\mathbb{R}^n$ is $n$.
+
+If $\alpha_1\mathbf{v}_1 + \alpha_2\mathbf{v}_2 + \dots + \alpha_k\mathbf{v}_k = \vec{0}$ only has one solution $\alpha_1 = \alpha_2 
+ = \dots = \alpha_n = 0$, then $\mathbf{v}_1$, $\mathbf{v}_2$, ... $\mathbf{v}_n$ are called \textbf{linearly independent}. Otherwise the vectors are linearly dependent, and at least one of the vectors can be written as a linear combination of the other vectors in the set. A basis is always linearly independent.
+
+\medskip
+\noindent \textbf{Inner product:} An inner product is a function that takes 2 vectors from the same real vector space and returns a real number. There are 4 properties hold ($\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$ and $\alpha, \beta \in \mathbb{R}$): 
+    \begin{enumerate}
+        \item Positivity: $\langle \mathbf{u}, \mathbf{u} \rangle \geq 0$
+        \item Definiteness: $\langle \mathbf{u}, \mathbf{u} \rangle = 0$ iff $\mathbf{u} = \vec{0}$
+        \item Symmetric: $\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle$
+        \item Linearity: $\langle \alpha \mathbf{u} + \beta \mathbf{v}, \mathbf{w} \rangle = \alpha \langle \mathbf{u}, w \rangle + \beta \langle \mathbf{v}, \mathbf{w} \rangle$.
+    \end{enumerate}
+
+If $\mathbf{U}, \mathbf{V} \in V$ and $\langle \mathbf{U}, \mathbf{V} \rangle = \vec{0}$, then $\mathbf{u}$ and $\mathbf{v}$ are \textbf{orthogonal}. The standard inner product is the \textbf{dot product}: $\langle \mathbf{x}, \mathbf{y}\rangle = \mathbf{x}^T\mathbf{y} = \sum_{i=1}^nx_i y_i$.
+
+\newpage
+\noindent \textbf{Linear transformations:} A function $f: V \to W$ between 2 vectors $v$ and $w$ is considered to be \textbf{linear} if the following 2 properties hold:
+    \begin{enumerate}
+        \item $f(\mathbf{u} + \mathbf{v}) = f(\mathbf{u}) + f(\mathbf{v})$, where $\mathbf{u},\mathbf{v} \in V$.
+        \item $f(c\mathbf{v}) = cf(\mathbf{v})$, for all $\mathbf{v} \in V$ and scalars $c$.
+    \end{enumerate}
+    
+    Where $f$ is called a \textbf{linear transformation}. If $n$ and $m$ are the dimensions of $V$ and $W$, then $f$ can be represented as a $m \times n$ matrix $\mathbf{A}$.
+
+\medskip
+\noindent \textbf{Matrices:}
+    \begin{itemize}
+        \item Special matrices:
+            \begin{itemize}
+                \item \textbf{Zero Matrix:} A matrix with all entries to be zero.
+                \item \textbf{Identity Matrix:} An $n \times n$ matrix with 1 in the diagonal entries and 0 elsewhere. Can be considered as ``1" because $\mathbf{AI}_n = \mathbf{A}$.
+                \item \textbf{Diagonal Matrix:} An $n \times n$ diagonal matrix has all zeroes at non-diagonal entries.
+                \item \textbf{Triangular Matrix:} A lower-triangular matrix ($\mathbf{L}$) is a square matrix that is entirely zero above the diagonal. An upper triangular matrix ($\mathbf{U}$) is a square matrix that is entirely zero below the diagonal. Here are the properties:
+                    \begin{itemize}
+                        \item A $n \times n$ triangular matrix has $n(n-1)/2$ entries that must be zero, and $n(n+1)/2$ entries that are allowed to be non-zero.
+                        \item Zero matrices, identity matrices, and diagonal matrices are all both lower triangular and upper triangular.
+                    \end{itemize} 
+                \item \textbf{Permutation Matrix:} A square matrix that is all zero, except for a single entry in each row and each column which is 1. Here are the properties:
+                    \begin{itemize}
+                        \item Exactly $n$ entries are zero.
+                        \item Multiplying a vector with a permutation matrix permutes (rearranges) the order of the entries in the vector.
+                        \item If $\mathbf{P}_{ij} = 1$, the ($\mathbf{Px}_i = \mathbf{x}_j$)
+                        \item The inverse of a permutation matrix is its transpose, so ${\bf PP}^T = {\bf P}^T{\bf P} = {\bf I}$.
+                    \end{itemize}
+            \end{itemize}
+        \item Block form: A matrix in block form is a matrix partitioned into blocks. For example: $\displaystyle {\bf M} = \begin{bmatrix} {\bf A} & {\bf B} \\ {\bf C} & {\bf D} \end{bmatrix}$.
+
+        \item Matrix rank: The rank of a matrix is the number of linearly independent columns of the matrix. It can also be shown that the matrix has the same number of linearly independent rows, as well. If $\mathbf{A}$ is an $m \times n$ matrix, then
+            \begin{enumerate}
+                \item $\text{rank}(\mathbf{A}) \leq \text{min}(m,n)$
+                \item If $\text{rank}(\mathbf{A}) = \text{min}(m,n)$, then $\mathbf{A}$ is full rank. Otherwise, $A$ is rank deficient.
+            \end{enumerate}
+        An $n \times n$ matrix $\mathbf{A}$ is invertable if and only if there exists another matrix $\mathbf{B}$ such at $\mathbf{AB} = \mathbf{BA} = \mathbf{I}$. Then, $\mathbf{B}$ is called the inverse of $A$, or write as $\mathbf{A}^{-1}$. A square matrix is invertible if and only if it has full rank. A square matrix that is not invertible is called a singular matrix.
+
+        \item Matrix-vector multiplication: There are 2 forms to represent $\mathbf{A}\mathbf{x} = \mathbf{b}$:
+            \begin{enumerate}
+                \item Writing a matrix-vector multiplication as inner products of the rows $\mathbf{A}$: 
+                    $$\mathbf{A}\mathbf{x} = \begin{bmatrix} \mathbf{a}_{1}^T \cdot \mathbf{x} \\ \mathbf{a}_{2}^T \cdot \mathbf{x} \\ \vdots \\ \mathbf{a}_{m}^T\cdot \mathbf{x}\end{bmatrix}$$
+                    \item Writing a matrix-vector multiplication as linear combination of the columns of $\mathbf{A}$:
+                    $$\mathbf{A}\mathbf{x} = x_1\mathbf{a}_{1} + x_2\mathbf{a}_{2} + \dots x_n\mathbf{a}_{n} = x_1\begin{bmatrix}a_{11} \\ a_{21} \\ \vdots \\ a_{m1}\end{bmatrix} + x_2\begin{bmatrix}a_{12} \\ a_{22} \\ \vdots \\ a_{m2}\end{bmatrix} + \dots + x_n\begin{bmatrix}a_{1n} \\ a_{2n} \\ \vdots \\ a_{mn}\end{bmatrix}$$
+            \end{enumerate}
+        \item Matrices as operator:
+            \begin{itemize}
+                \item Rotation (counterclockwise): $\displaystyle {y_1 \choose y_2} = \begin{bmatrix} {\bf \cos(\theta)} & {\bf -\sin(\theta)} \\ {\bf \sin(\theta)} & {\bf \cos(\theta)} \end{bmatrix} {x_1 \choose x_2}$
+                \item Scale (factor $a$ in $x$-direction and $b$ in $y$-direction): $\displaystyle {y_1 \choose y_2} = \begin{bmatrix} a & { 0} \\ { 0} & { b} \end{bmatrix} {x_1 \choose x_2}$
+                \item Reflection (both $x$ and $y$ axis): $\displaystyle {y_1 \choose y_2} = \begin{bmatrix} { -1} & { 0} \\ { 0} & { -1} \end{bmatrix} {x_1 \choose x_2}$
+                \item Transition (this is \textbf{not} linear): $\displaystyle {y_1 \choose y_2} = \begin{bmatrix} { 1} & { 0} \\ { 0} & { 1} \end{bmatrix} {x_1 \choose x_2} + {a \choose b}$
+            \end{itemize}
+    \end{itemize}
+    
+
+\newpage
+\noindent \textbf{Vector and matrix norm:} A vector norm is a function $\norm{\mathbf{u}} : V \to \mathbb{R}^+_0$ (i.e., it takes a vector and returns a nonnegative real number) that satisfies the following properties, where $\mathbf{u}, \mathbf{v} \in V$ and $\alpha \in \mathbb{R}$:
+    \begin{enumerate}
+        \item Positivity: $\norm{\mathbf{u}} \ge 0$
+        \item Definiteness: $\|\mathbf{u}\| = 0$ if and only if $\mathbf{u} = \vec{0}$
+        \item Homogeneity: $\norm{\alpha \mathbf{u}} = |\alpha| \norm{\mathbf{u}}$
+        \item Triangle inequality: $\|\mathbf{u} + \mathbf{v}\| \leq \|\mathbf{u}\| + \|\mathbf{v}\|$
+    \end{enumerate}
+
+    The $p$-norm of a vector is defined as $\displaystyle \norm{\mathbf{w}}_p = \left( |\mathbf{w}_1|^p + |\mathbf{w}_2|^p + \dots + |\mathbf{w}_n|^p \right) ^{\frac{1}{p}} = \left( \sum |\mathbf{w}_i| ^p \right) ^{\frac{1}{p}}$. Especially, When $p = 2$
+ (2-norm), this is called the Euclidean norm and it corresponds to the length of the vector.
+
+The matrix norm has the same properties that a vector norm has. Here are some common matrix norms:
+    \begin{itemize}
+        \item \textbf{Induced (or operator) norm:} $\displaystyle \norm{\mathbf{A}} := \max_{\norm{\mathbf{x}}=1} \norm{\mathbf{Ax}}$. An induced matrix norm is a particular type of a general matrix norm. Induced matrix norms tell us the maximum amplification of the norm of any vector when multiplied by the matrix. Note that the definition above is equivalent to $\displaystyle \norm{\mathbf{A}} = \max_{\norm{\mathbf{x}} \neq 0} \frac{\norm{\mathbf{Ax}}}{\norm{x}}$. Induced matrix norms also satisfy the submultiplicative conditions: $\norm{AB} \leq \norm{A} \norm{B}$.
+        \item \textbf{Frobenius norm:} Square root of the sum of every squared element of the matrix. $\displaystyle \norm{\mathbf{A}}_F = \sqrt{\sum_{i,j} a_{ij}^2}$.
+        \item \textbf{$p$-norm of a matrix:} The matrix p-norm is induced by the p-norm of a vector. It is $\displaystyle \norm{\mathbf{A}}_p := \max_{\norm{\mathbf{x}}_p=1} \norm{\mathbf{Ax}}_p$.
+            \begin{itemize}
+                \item 1-norm: The maximum absolute column sum of the matrix. $\displaystyle \norm{\mathbf{A}}_1 = \max_j \sum_{i=1}^n \vert a_{ij} \vert.$
+                \item 2-norm: The maximum singular value of the matrix. $\displaystyle \norm{A}_{2} = \max_k \sigma_k$
+                \item $\infty$-norm: The maximum absolute row sum of the matrix. $\norm{\mathbf{A}}_{\infty} = \max_i \sum_{j=1}^n \vert a_{ij} \vert.$
+            \end{itemize}
+    \end{itemize}
+
+\newpage
+\noindent \textbf{Python for vectors and matrices:}
+    \begin{minted}{Python}
+        import numpy as np
+        import numpy.linalg as la
+        
+        a = np.array([[8, 9]])
+        b = np.array([[1, 2, 3], [4, 5, 6]]) 
+        
+        # The most important operation you'll do is matrix multiplication
+        # we can do this easily in 2 ways (both are the same)
+        c = np.dot(a, b)
+        c = a @ b
+        
+        A = np.array([1, 2], [3, 4])
+        b = np.array([5, 6])
+        
+        matrix_inv = la.inv(A)          # inverse matrix
+        
+        vec_norm = la.norm(A)           # calculate norm of A
+        vec_norm_3 = la.norm(A, 3)      # calculate 3-norm of A
+        
+    \end{minted}
+\end{document}

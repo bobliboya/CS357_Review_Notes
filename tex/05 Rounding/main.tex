@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem,minted}
+\usepackage{indentfirst}
+\usepackage[version=4]{mhchem}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 05 Rounding\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{Rounding in IEEE-754:} Not all real numbers $x$ can be expressed in the floating point format. We need to round it into the nearby machine number, either $x_-$ or $x_+$:
+
+    $$ x_{-} = 1.b_1 b_2 b_3 ... b_n \times 2^m $$
+    $$ x_{+} = 1.b_1 b_2 b_3 ... b_n \times 2^m + 0.\underbrace{000000...0001}_{n\text{ bits}} \times 2^m $$
+
+    This process is called rounding, the error is called roundoff error. Listed below are the rounding options: 
+        \begin{itemize}
+            \item round towards zero/infinity or up/down (different for positive and negative)
+            \item round to nearest floating point (up/down take the closer one)
+            \item round by chopping (take $x_-$)
+        \end{itemize}
+
+    \begin{center} \renewcommand\arraystretch{2}
+        \begin{tabular}{|c|c|c|}
+             \hline & \textbf{positive $\boldsymbol{x}$} & \textbf{negative $\boldsymbol{x}$} \\
+             \hline Round up (ceil) & $x_+$ (towards $+\infty$) & $x_-$ (towards 0) \\
+             \hline Round down (floor) & $x_-$ (towards 0) & $x_+$ (towards $-\infty$) \\
+             \hline
+        \end{tabular}
+    \end{center}
+
+    The roundoff errors are bounded, as shown below:
+    $$ |x_+ - x_-| = \epsilon_m \times 2^m$$
+
+    \begin{itemize}
+        \item \textbf{Bound for absolute error:} $|fl(x) - x| \leq \epsilon_m \times 2^m$
+        \item \textbf{Bound for relative error:} $\dfrac{|fl(x) - x|}{|x|}  \leq \epsilon_m$
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Mathematical properties:}
+    \begin{itemize}
+        \item \textbf{Not necessarily associative:} Because $fl(fl(x + y) + z) \neq fl(x + fl(y + z))$.
+        \item \textbf{Not necessarily distributive:} Becuse $fl(z \cdot fl(x + y)) \neq fl(fl(z \cdot x) + fl(z \cdot y))$.
+        \item \textbf{Not necessarily cumulative:} repeatedly adding a very small number to a large number may do nothing.
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Floating point addition:} Here the steps to do the addition:
+    \begin{enumerate}
+        \item Make both numbers into a common exponent
+        \item Do grade-school addition from left to right, until run out of digits
+        \item Round the result
+    \end{enumerate}
+    Note: There is no loss of significant digits with floating point addition.
+    
+\newpage
+\noindent \textbf{Floating point subtraction and catastrophic cancellation:} Floating point subtraction is similar to addition, however problems occur when you subtract two numbers of similar magnitude. Example from book:
+    \begin{align*} a &= 1.1011???? \times 2^1 \\ b &= 1.1010???? \times 2^1 \\ a - b &= 0.0001???? \times 2^1 \\ \end{align*}
+    
+    When we normalize the result, we get $1.???? \times 2^{-3}$. There is no data to indicate what the missing digits should be. Although the floating point number will be stored with 4 digits in the fractional, it will only be accurate to a single significant digit. This loss of significant digits is known as catastrophic cancellation. A method of avoiding loss of significant digits is to eliminate subtraction.
+    
+\end{document}

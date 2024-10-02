@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem,minted}
+\usepackage{indentfirst}
+\usepackage[version=4]{mhchem}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 09 LU Decomposition for Solving Linear Equations\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{Backward substitution:} A upper-triangular linear system $\mathbf{Ux} = \mathbf{b}$ can be written in matrix form: 
+
+$$\begin{bmatrix} U_{11} & U_{12} & \ldots & U_{1n} \\ 0 & U_{22} & \ldots & U_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & U_{nn} \\ \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{bmatrix}$$
+
+We can write the matrix form into the equation system form, and the general soluation of the system of equation is: 
+$$x_n = \frac{b_n}{U_{nn}}; \hspace{1cm} x_i = \frac{b_i - \sum_{j=i+1}^n U_{ij} x_j}{U_{ii}} \hspace{5mm} \text{for }i = n-1, n-2, \dots, 1$$
+
+Here are some properties for the backward substitution:
+    \begin{enumerate}
+        \item If any diagonal elements is 0 then the system is singular and cannot be solved
+        \item If all diagonal elements is non-zero then the system has a unique solution.
+        \item The number of operations is $\mathcal{O}(n^2)$.
+    \end{enumerate}
+
+\medskip
+\noindent \textbf{Forward substitution:} A lower-triangular linear system $\mathbf{Lx} = \mathbf{b}$ can be written in the matrix form:
+    $$\begin{bmatrix} L_{11} & 0 & \ldots & 0 \\ L_{21} & L_{22} & \ldots & 0 \\ \vdots & \vdots & \ddots & 0 \\ L_{n1} & L_{n2} & \ldots & L_{nn} \\ \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{bmatrix}$$
+
+We can write the matrix form into the equation system form, and the general soluation of the system of equation is:  
+$$x_1 = \frac{b_1}{L_{11}}; \hspace{1cm} x_i = \frac{b_i - \sum_{j=1}^{i-1} L_{ij} x_j}{L_{ii}} \hspace{5mm} \text{for } i = 2, 3, ..., n$$
+
+Here are some properties for the backward substitution: (Same as backward substitution)
+    \begin{enumerate}
+        \item If any diagonal elements is 0 then the system is singular and cannot be solved
+        \item If all diagonal elements is non-zero then the system has a unique solution.
+        \item The number of operations is $\mathcal{O}(n^2)$.
+    \end{enumerate}
+
+\newpage
+\noindent \textbf{LU Decomposition:} Solve $\mathbf{Ax} = \mathbf{b}$ when $\mathbf{A}$ is an $n \times n$ non-singular matrix, we can use LU decomposition:
+    \begin{enumerate}
+        \item $\mathbf{A} = \mathbf{LU}$
+        \item $\mathbf{L}$ is the lower-triangular matrix and all diagonal entries is 1
+        \item $\mathbf{U}$ is the upper-triangular matrix .
+    \end{enumerate}
+
+$$\begin{bmatrix} 1 & 0 & \ldots & 0 \\ L_{21} & 1 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ L_{n1} & L_{n2} & \ldots & 1 \\ \end{bmatrix} \begin{bmatrix} u_{11} & U_{12} & \ldots & U_{1n} \\ 0 & U_{22} & \ldots & U_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & U_{nn} \\ \end{bmatrix} = \begin{bmatrix} A_{11} & A_{12} & \ldots & A_{1n} \\ A_{21} & A_{22} & \ldots & A_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ A_{n1} & A_{n2} & \ldots & A_{nn} \\ \end{bmatrix}$$
+
+Here are some properties:
+    \begin{itemize}
+        \item The LU decomposition may not exist for a matrix $\mathbf{A}$ (singular matrix).
+        \item If the LU decomposition exists, then it is unique.
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Using LU decomposition to solve linear system:}
+
+
+\begin{align*}
+{\bf A x} &= {\bf b} \\ {\bf L U x} &= {\bf b} \\ {\bf U x} &= {\bf L}^{-1} {\bf b} \\ {\bf x} &= {\bf U}^{-1} ({\bf L}^{-1} {\bf b}), 
+\end{align*}
+
+The number of operations for the LU solve algorithm is $\mathcal{O}(n^2)$.
+
+\medskip
+\noindent \textbf{LU Algorithm:} 
+\href{https://cs357.github.io/textbook/notes/linsys.html#the-lu-decomposition-algorithm}{Link to course textbook}
+
+\begin{itemize}
+    \item Number of divisions: $\dfrac{n(n-1)}{2}$
+    \item Number of multiplications: $\dfrac{n^3}{3} - \dfrac{n^2}{2} + \dfrac{n}{6}$
+    \item Number of subtractions: $\dfrac{n^3}{3} - \dfrac{n^2}{2} + \dfrac{n}{6}$
+    \item Number of total operations: $\mathcal{O}(n^3)$
+\end{itemize}
+
+\newpage
+\noindent \textbf{LUP Decomposition (Partial Pivoting):} $\mathbf{P}$ is an $n \times n$ permutation matrix, which are able to exchange some rows of $\mathbf{A}$. The LUP decomposition should appear in the form of $\mathbf{PA }= \mathbf{LU}$. To solve a linear system using LUP decomposition, the general step is: 
+    \begin{align*} {\bf Ax} &= {\bf b} \\ {\bf PAx} &= {\bf Pb} \\ {\bf LUx} &= {\bf Pb} \end{align*}
+
+\medskip
+\noindent \textbf{LUP Algorithm:} \href{https://cs357.github.io/textbook/notes/linsys.html#the-lup-decomposition-algorithm}{Link to course textbook}
+
+Remember that the computational complexity for LUP decompositon is $\mathcal{O}(n^3)$.
+    
+
+\end{document}

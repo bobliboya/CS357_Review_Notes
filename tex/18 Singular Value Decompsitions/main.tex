@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem,minted}
+\usepackage{indentfirst}
+\usepackage[version=4]{mhchem}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 18 Singular Value Decompositions\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{Overview of SVD:} A more general factorization for any $m \times n$ matrix, there exists a Singular Value Decompsition $\bf{A=U{\Sigma}V^T}$.
+
+\begin{itemize}
+    \item $\mathbf{U}$ is composed of the eigenvectors of $\mathbf{AA}^T$ as its columns, the vectors are called left singular vectors of $\mathbf{A}$. $\mathbf{U}$ is an orthogonal basis of $\mathbb{R}^m$. $\mathbf{U}$ is an $m \times m$ orthogonal matrix.
+    \begin{align*}
+        \mathbf{A}\mathbf{A}^T &= ({\bf U} {\bf \Sigma} {\bf V}^T)({\bf U} {\bf \Sigma} {\bf V}^T)^T \\
+        \hspace{2cm} ({\bf U} {\bf \Sigma} {\bf V}^T) ({\bf V}^T)^T {\bf \Sigma}^T {\bf U}^T &= {\bf U} {\bf \Sigma} ({\bf V}^T {\bf V}) {\bf \Sigma}^T {\bf U}^T = {\bf U} ({\bf \Sigma} {\bf \Sigma}^T) {\bf U}^T
+    \end{align*}
+    
+    \item $\mathbf{V}$ is composed of the eigenvectors of $\mathbf{A}^T\mathbf{A}$ as its columns, the vectors arecalled right singular vectors of $\mathbf{A}$. $\mathbf{V}$ is an orthogonal basis of $\mathbb{R}^n$. $\mathbf{V}$ is an $n \times n$ orthogonal matrix.
+    \begin{align*}
+        \mathbf{A}^T\mathbf{A} &= ({\bf U} {\bf \Sigma} {\bf V}^T)^T ({\bf U} {\bf \Sigma} {\bf V}^T) \\
+        &= {\bf V} ({\bf \Sigma}^T {\bf \Sigma}) {\bf V}^T \\
+        &= \mathbf{V\Sigma^2V}^T
+    \end{align*}
+
+    
+    \item $\mathbf{\Sigma}$ is a $m \times n$ diagonal matrix composed of square roots of the eigenvalues of $\mathbf{A}^T\mathbf{A}$, called singular values. The diagonal of $\mathbf{\Sigma}$ is ordered by non-increasing singular values and the columns of $\mathbf{U}$ and $\mathbf{V}$ are ordered respectively.
+    \begin{eqnarray*} {\bf \Sigma} = \begin{bmatrix} \sigma_1 & & \\ & \ddots & \\ & & \sigma_s \\ 0 & & 0 \\ \vdots & \ddots & \vdots \\ 0 & & 0 \end{bmatrix} \text{when } m > n, \; \text{and} \; {\bf \Sigma} = \begin{bmatrix} \sigma_1 & & & 0 & \dots & 0 \\ & \ddots & & & \ddots &\\ & & \sigma_s & 0 & \dots & 0 \\ \end{bmatrix} \text{when} \, m < n. \end{eqnarray*}
+    Note: $\sigma_1 \ge \sigma_2 \dots \ge \sigma_s \ge 0$.
+\end{itemize}
+
+\medskip
+\noindent \textbf{Time complexity:} All of the computation cost of SVD, matrix-matrix production and LU decomposition is $\mathcal{O}(n^3)$. But the cost ranking is $\text{SVD} > \text{Matrix-Matrix Production} > \text{LU}$. 
+
+\medskip
+\noindent \textbf{Reduced SVD:} SVD of a non-square matrix $\mathbf{A}$ of size $m \times n$ can be represented in a reduced format:
+    \begin{itemize}
+        \item For $m \ge n$: $\mathbf{U}$ is $m \times n$, $\mathbf{\Sigma}$ is $n \times n$, and $\mathbf{V}$ is $n \times n$.
+        \item For $m \le n$: $\mathbf{U}$ is $m \times m$, $\mathbf{\Sigma}$ is $m \times m$, and $\mathbf{V}$ is $n \times m$. ($\mathbf{V}^T$ is $m \times n$)
+    \end{itemize}
+
+    In general we will represent the reduced SVD as: ${\bf A} = {\bf U}_R {\bf \Sigma}_R {\bf V}_R^T$, where $\mathbf{U}_R$ is a $m \times k$ matrix, $\mathbf{V}_R$ is a $n \times k$ matrix, $\mathbf{\Sigma}_R$ is a $k \times k$ matrix, $k = \min(m, n)$.
+
+\newpage
+\noindent \textbf{Important concepts about SVD:} For a $m \times n$ matrix $\mathbf{A} = \mathbf{U\Sigma V}^T$:
+    \begin{itemize}
+        \item \textbf{Rank of a matrix:} Let $s = \min(m, n)$, if there are $r$ non-zero singular singular values, $\text{rank}(\mathbf{A}) = r$, if $r = s$, the matrix is full rank, if $r < s$, the matrix is rank deficient.
+        \item \textbf{Nullspace:} $\text{null}(\bf{A}) = \text{span}({\bf v}_{r+1}, {\bf v}_{r+2}, \dots, {\bf v}_{n})$; solve space for $\mathbf{A}$ when $\mathbf{Ax} = \vec{0}$.
+        \item \textbf{Range:} $\text{range}(\bf{A}) = \text{span}(\bf{u}_1, \bf{u}_2, \dots, \bf{u}_r)$
+        \item \textbf{Rank-nullity theorem:} $\text{rank}(\mathbf{A}) + \text{null}(\mathbf{A}) = n$.
+        \item \textbf{Pseudoinverse:} If the matrix $\mathbf{\Sigma}$ is rank deficient, we cannot get its inverse. We define instead the pseudoinverse: $\displaystyle ({\bf \Sigma}^+)_{ii} = \begin{cases} 1/{\sigma_i} & \sigma_i \neq 0\\ 0 & \sigma_i = 0 \end{cases}$. So the pseudoinverse of $\mathbf{A}$ is defined as ${\bf A}^{+} = {\bf V\Sigma}^{+}{\bf U}^T$. Here are some true concepts that might be useful for the quiz:
+            \begin{itemize}[label={\checkmark}]
+                \item If $\mathbf{A}$ is orthogonal, then $\mathbf{A}^{-1}$ and $\mathbf{A}^+$ exist and qre equal.
+                \item If $\mathbf{A}^{-1}$ exists, then $\mathbf{A}^+$ also exists and they are equal.
+                \item It is possible for $\mathbf{A}^+$ to exist when $\mathbf{A}^{-1}$ does not exist.
+                \item For any matrix, the pseudoinverse always exists.
+            \end{itemize}
+        \item \textbf{Euclidean Norm of a matrix / inverse:}
+            \begin{itemize}
+                \item $\norm{\mathbf{A}}_2= \sigma_1$ - The largest singular value.
+                \item If the matrix is full-rank, $\norm{\mathbf{A}^{-1}}_2= 1/{\sigma_n}$ - Inverse of the smallest singular value.
+                \item If the rank is rank-deficient, $\norm{\mathbf{A}^{+}}_2= 1/{\sigma_r}$ - Inverse of the smallest non-zero singular value.
+                \item For a zero matrix, $\norm{\mathbf{A}^+}_2 = 0$
+                \item For a full-rank matrix, the 2-norm condition number is $\sigma_{\text{max}} / \sigma_{\text{min}}$. If the matrix is rank-deficient, the 2-norm condition number if $\infty$.
+            \end{itemize}
+        \item \textbf{Low-rank approximation:} $\displaystyle \|{\bf A} - {\bf A}_k\|_2 = \left|\left|\sum_{i=k+1}^n \sigma_i \bf{u}_i \bf{v}_i^T\right|\right|_2 = \sigma_{k+1}$
+        \item \textbf{Using SVD to solve system of equation:} Cost to solve $\mathcal{O}(n^2)$
+            \begin{enumerate}
+                \item $\mathbf{\Sigma y=U}^T\mathbf{b}$
+                \item $\bf{x=Vy}$
+            \end{enumerate}
+    \end{itemize}
+
+\begin{minted}{Python}
+        import numpy as np
+        import numpy.linalg as la
+        U1, S1, VT1 = np.linalg.svd(A, full_matrices=True)    # Full SVD
+        U2, S2, VT2 = np.linalg.svd(B, full_matrices=False)   # Reduced SVD
+\end{minted}
+
+\noindent
+\href{https://cs357.github.io/textbook/notes/svd.html}{Link to course textbook for more detailed information.}
+\end{document}

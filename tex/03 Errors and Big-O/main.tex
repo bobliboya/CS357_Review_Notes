@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem,minted}
+\usepackage{indentfirst}
+\usepackage[version=4]{mhchem}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 03 Errors and big-O notation\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{Absolute and relative error:}
+    \begin{itemize}
+        \item Approximate result = True value + error
+        \item \textbf{Absolute error:} $e_a = |x - \hat{x}|$
+        \item \textbf{Relative error:} $e_r = \dfrac{|x - \hat{x}|}{|x|}$
+    \end{itemize}
+    
+    While $x$ is the true value and $\hat{x}$ is the approximated value.
+
+
+\medskip
+\noindent \textbf{Significant digits:} For ``true" value ($x$) the number of significant digits begins from the leftmost non-zero digit and ends with the rightmost digit. For example:
+    \begin{itemize}
+        \item The number 3.14159 has six significant digits.
+        \item The number 0.000350 has three significant digits.
+    \end{itemize}
+
+    For an approximate result ($\hat{x}$), the number of significant digits can be determined in the following process:
+    \begin{enumerate}
+        \item Evaluate absolute error $e_a = |x - \hat{x}|$
+        \item Count first $n$ digits from the first decimal places to the digits following by a number from 0 to 4. Here are 2 examples.
+            \begin{itemize}
+                \item $\hat{x} = 3.14159 \to |x - \hat{x}| = 0.000002653 \to \text{6 sig-fig}$
+                \item $\hat{x} = 3.1415 \to |x - \hat{x}| = 0.000092653 \to \text{4 sig-fig}$
+            \end{itemize}
+    \end{enumerate}
+
+    The number of accurate significant digits can be estimated by the relative error:
+        $$\frac{|x - \hat{x}|}{|x|} \geq 10 ^{-n+1}$$
+    then $\hat{x}$ has at most $n$ significant digits.
+
+    We can use the rule-of-thumb to calculate the upper bound of relative error, if we have $n$ significant digits, then the relative error
+        $$\frac{|x - \hat{x}|}{|x|} \leq 10^{-n+1}$$
+
+\medskip
+\noindent \textbf{Error for vectors:} We are calculating absolute and relative errors for vectors in a similar way, by taking the difference and calculate the norm. 
+    \begin{itemize}
+        \item \textbf{Absolute error:} $e_a = \norm{\mathbf{x} - \mathbf{\hat{x}}}$
+        \item \textbf{Relative error:} $e_r = \dfrac{\norm{\mathbf{x} - \mathbf{\hat{x}}}}{\norm{\mathbf{x}}}$
+    \end{itemize}
+
+\newpage
+\noindent \textbf{Rounding and truncation error:} 
+    \begin{itemize}
+        \item \textbf{Rounding error: }Occurs from rounding values in a computation. For example, store the fraction $1/3 \approx 0.3333$ into the computer. 
+        \item \textbf{Truncation error: }Occurs when using an approximate algorithm in place of an exact mathematical procedure of function. For example, using finite Taylor Series to approximate a function.
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Big-O Notation:} Used to describe asymptotic behavior. The definition in the cases of approaching 0 or $\infty$ are as follows:
+    \begin{itemize}
+        \item \textbf{``$\infty$" Condition:} $f(x) = \mathcal{O}(g(x))$ as $x \to \infty$ if and only if there exists a value $M$ and some $x_0$ such that $|f(x)| \leq M|g(x)|$ for $\forall x$ where $x \geq x_0$.
+        \item \textbf{``0" Condition:} $f(h) = \mathcal{O}(g(h))$ as $h \to 0$ if and only if there exists a value $M$ and some $h_0$ such that $|f(h)| \leq M|g(h)|$ for $\forall h$ where $0 \leq h \leq h_0$.
+        \item \textbf{Arbitrary ``$a$" Condition:} $f(x) = \mathcal{O}(g(x))$ as $x \to a$ if and only if there exists a value $M$ and some $\delta$ such that $|f(x)| \leq M|g(x)|$ for $\forall x$ where $0 \leq |x-a| \leq \delta$.
+    \end{itemize}
+    Here are some examples of big-O notation:
+        \begin{itemize}
+            \item \textbf{Time complexity:} The time complexity for matrix multiplication (each size is $n \times n$) is $\mathcal{O}(n^3)$.
+            \item \textbf{Truncation errors:} A numerical method is called $n$-th order accurate if its truncation error $E(h)$ obeys $\mathcal{O}(h^n)$.
+        \end{itemize}
+\end{document}

@@ -1,0 +1,221 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem}
+\usepackage{indentfirst}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 16 Optimization\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{2 types of optimization:} Function $f(\mathbf{x}) : S \to \mathbb{R}$, $S \subset \mathbb{R}^n$, the point $\mathbf{x}^*$ is called the \textbf{minimizer} or \textbf{minimum} of $f$ if $f(\mathbf{x}^*)\leq f(\mathbf{x}) \, \forall \mathbf{x} \in S$. Generally, there are 2 types of optimization:
+\begin{enumerate}
+    \item \textbf{Unconstrained:} Find any $\mathbf{x}^*$ to minimize $f(\mathbf{x})$.
+    \item \textbf{Constrained:} Find any $\mathbf{x}^*$ to minimize $f(\mathbf{x})$, and 
+        \begin{enumerate}
+            \item $g(\mathbf{x}) = 0$ (Equality Constraints), or
+            \item  $g(\mathbf{x}) \leq 0$ (Inequality Constraints)
+        \end{enumerate}
+        While $g$ is another function.
+\end{enumerate}
+
+\medskip
+\noindent \textbf{Introduction to maximizer:} In order to find the maximizer $\mathbf{x}^*$ for function $f(\mathbf{x})$, we can find the minimizer of function $-f(\mathbf{x})$.
+
+\medskip
+\noindent \textbf{Local and global minima:}
+    \begin{itemize}
+        \item \textbf{Local minima:} $\mathbf{x}^*$ is a local minimum if $f(\mathbf{x}^*)\leq f(\mathbf{x})$ in \textbf{some subset of domain}.
+        \item \textbf{Global minima:} $\mathbf{x}^*$ is a global minimum if $f(\mathbf{x}^*)\leq f(\mathbf{x})$ for \textbf{all $\mathbf{x}$ in the domain}.
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Properties for 1D stationary points:}
+    \begin{enumerate}
+        \item \textbf{First-order derivative, necessary condition:} $f'(x^*) = 0$
+        \item \textbf{Second-order derivative, sufficient condition:}
+            \begin{enumerate}
+                \item $f''(x^*) > 0$ - Local minima;
+                \item $f''(x^*) < 0$ - Local maxima;
+                \item $f''(x^*) = 0$ - Inflection point.
+            \end{enumerate}
+    \end{enumerate}
+
+\medskip
+\noindent \textbf{Unimodal functions:}
+    \begin{itemize}
+        \item \textbf{Definition:} A function $f:\mathbb{R}\to \mathbb{R}$ is unimodal on an interval $[a,b]$ if this function has a unique (global) minimum on that interval $[a,b]$.
+        \item \textbf{Properties:} Assume $x_1, x_2, x^* \in [a, b]$ and $x_1 < x_2$, 
+            \begin{itemize}
+                \item [$\diamond$] $x_2 < x^*\Rightarrow f(x_1)>f(x_2)$
+                \item [$\diamond$] $x^* < x_1\Rightarrow f(x_1)<f(x_2)$
+            \end{itemize}
+    \end{itemize}
+
+\newpage
+\noindent \textbf{Golden section search:}
+    \begin{itemize}
+        \item \textbf{Motivation:} Reduce the domain to certain $[x_1, x_2]$, find a root of the first order derivative.
+        \item \textbf{Iteration steps:} 
+            \begin{enumerate}
+                \item Starting from initial interval $[a, b]$, take $x_1 = a + (1-\tau)(b-a)$ and $x_2 = a + \tau (b - a)$
+                \item Evaluate $f(x_1)$ and $f(x_2)$
+                \item Update the interval $[a, b]$
+                    \begin{itemize}
+                        \item If $f(x_1) > f(x_2)$ our new interval would be $[x_1, b]$;
+                        \item If $f(x_1) \leq f(x_2)$ our new interval would be $[a, x_2]$;
+                    \end{itemize}
+            \end{enumerate}
+            Note: $\tau$ is the coefficient that shrinks the interval at constant rate each iteration, in the Golden section search,  $\tau = \dfrac{\sqrt{5}-1}{2} \approx 0.618$, which is equal to the Golden Ratio.
+        \item \textbf{Convergence:} Linear convergent, $C = \tau \approx 0.618$
+        \item \textbf{Cost:} One function evaluation at each iteration because we can reuse $x_1$ or $x_2$ as an interior point.
+        \item \textbf{``Bracket length":} Define the ``bracket length" as $h = b-a$, the ``bracket length" after $n$ iterations is $h_n = \tau^n h$.
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Newton's method (for optimization)}:
+    \begin{itemize}
+        \item \textbf{Motivation:} Instead of find the root of $f(x)$, we are finding the root of $f'(x)$.
+        \item \textbf{Iteration steps:} 
+        \begin{enumerate}
+            \item $f'(x_k) + f''(x_k)\cdot h_k = 0 \to h_k = -\dfrac{f'(x_k)}{f''(x_k)}$ ($h_k$ is called Newton step)
+            \item $x_{k+1} = x_k + h_k = x_k - \dfrac{f'(x_k)}{f''(x_k)}$ (This step is called Newton update)
+        \end{enumerate}
+        \item \textbf{Convergence:} Quadratic convergence.
+        \item \textbf{Cost:} Each iteration we need to evaluate 2 functions, $f'(x_k)$ and $f''(x_k)$.
+    \end{itemize}
+
+\medskip
+\noindent \textbf{Hessian matrix (2nd order derivative for N-D functions): }
+$${\bf H}_f(\mathbf{x}) =\renewcommand\arraystretch{2} \begin{bmatrix} \dfrac{\partial^2 f}{\partial x_1^2} & \dfrac{\partial^2 f}{\partial x_1 \partial x_2} & \ldots & \dfrac{\partial^2 f}{\partial x_1 \partial x_n} \\ \dfrac{\partial^2 f}{\partial x_2 \partial x_1} & \dfrac{\partial^2 f}{\partial x_2^2} & \ldots & \dfrac{\partial^2 f}{\partial x_2 \partial x_n} \\ \vdots & \vdots & \ddots & \vdots \\ \dfrac{\partial^2 f}{\partial x_n \partial x_1} & \dfrac{\partial^2 f}{\partial x_n \partial x_2} & \ldots & \dfrac{\partial^2 f}{\partial x_n^2} \end{bmatrix}$$
+
+\newpage
+\noindent \textbf{Properties of N-D stationary points:}
+    \begin{enumerate}
+        \item \textbf{Gradient (1st order derivative), necessary condition:} $f'(\mathbf{x}^*) = \Vec{0}$
+        \item \textbf{Hessian matrix (2nd order derivative), sufficient condition:}
+\begin{center}
+        \begin{tabular}{ | c | c | c | } 
+              \hline
+              ${\bf H}_f(\mathbf{x}^*)$ & \textbf{Eigenvalues of ${\bf H}_f(\mathbf{x}^*)$} & \textbf{Critial point $\mathbf{x}^*$} \\ 
+              \hline
+              Positive definite & All positive & Minimizer \\ 
+              \hline
+              Negative definite & All negative & Maximizer\\ 
+              \hline
+              Indefinite & Indefinite & Saddle point \\ 
+              \hline
+        \end{tabular}
+    \end{center}
+    \end{enumerate}
+
+\medskip
+\noindent \textbf{N-D Steepest descent:} 
+\begin{itemize}
+    \item \textbf{Motivation:} The negative of the gradient of a differentiable function $f : \mathbb{R}^n \to \mathbb{R}$ points downhill (i.e. towards points in the domain having lower values). In other words, given a function $f : \mathbb{R}^n \to \mathbb{R}$ at a point $\mathbf{x}$, the function will decrease its value in the direction of ``steepest descent" $-\nabla f$. This hints us to move in the direction of $-\nabla f$ while searching for the minimum until we reach the point where $-\nabla f(\mathbf{x}) = \vec{0}$. 
+
+    We know the direction we need to move to approach the minimum but we still do not know the distance we need to move in order to approach the minimum. If $\mathbf{x}_k$ was our earlier point then we select the next guess by moving it in the direction of the negative gradient: 
+    $$\mathbf{x}_{k+1} = \mathbf{x}_k + \alpha(-\nabla f(\mathbf{x}_k)).$$
+
+    The next problem would be to find the $\alpha$, and we use the 1-dimensional optimization algorithms to find the required $\alpha$. Hence, the problem translates to: 
+    $$\mathbf{s} = -\nabla f(\mathbf{x}_k) \min_{\alpha}\left( f\left(\mathbf{x}_k + \alpha \mathbf{s}\right)\right)$$
+
+    \item \textbf{Iteration steps:}
+        \begin{enumerate}
+            \item Evaluate deepest descent: $\mathbf{s}_k = -\nabla f(\mathbf{x}_k)$
+            \item Perform a line search to obtain $\alpha_k$ (for example, Golden Section Search): 
+            $$\alpha_k = \underset{\alpha}{\mathrm{argmin}} f(\mathbf{x}_k + \alpha \mathbf{s}_k)$$
+            \item Update: $\mathbf{x}_k = \alpha_k \mathbf{s}_k$
+        \end{enumerate}
+    \item \textbf{Convergence:} Linear convergence.
+    \item \textbf{Side note:} $\nabla f(\mathbf{x}_{k+1})$ is orthogonal to $\nabla f(\mathbf{x}_k)$.
+\end{itemize}
+
+\newpage
+\noindent \textbf{N-D Newton's method:} 
+    \begin{itemize}
+        \item \textbf{Motivation:} Instead of find the root of $f(\mathbf{x})$, we are finding the root of $\nabla f(\mathbf{x})$.
+    \item \textbf{Iteration steps:}
+        \begin{enumerate}
+            \item $\nabla f(\mathbf{x}_k) + \mathbf{H}(\mathbf{x}_k) \cdot \mathbf{s}_k = 0 \to \mathbf{s}_k = - \mathbf{H}(\mathbf{x}_k)^{-1} \cdot \nabla f(\mathbf{x}_k)$ ($\mathbf{s}_k$ can also be calculated by solving the system $\mathbf{H}(\mathbf{x}_k) \cdot \mathbf{s}_k = - \nabla f(\mathbf{x}_k)$). 
+            \item $\mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{s}_k = \mathbf{x}_k - \mathbf{H}(\mathbf{x}_k)^{-1} \cdot \nabla f(\mathbf{x}_k)$
+        \end{enumerate}
+    \item \textbf{Convergence:} Quadratic convergence.
+    \item \textbf{Cost:} The cost per iteration is $\mathcal{O}(n^3)$, the cost of evaluate Hessian matrix is $\mathcal{O}(n^2)$.
+    \item \textbf{Drawbacks:}
+        \begin{itemize}
+            \item Need to evaluate 2nd order derivative
+            \item Only converges locally
+            \item Works poorly when Hessian is nearly indefinite
+        \end{itemize}
+\end{itemize}
+
+\medskip
+\noindent \textbf{SUMMARY: Computational cost (only CORRECT statements):}
+\begin{itemize} [label={\checkmark}]
+    \item Secant method reuses result from previous iterations to save computational resources.
+    \item Secant method and bisection method have similar computational cost per iteration after several iterations.
+    \item As the number of iteration increases, Newton's method is the most computationally expensive one among the three methods.
+\end{itemize}
+
+\medskip
+\noindent \textbf{SUMMARY: Convergence (only CORRECT statements):}
+\begin{itemize} [label={\checkmark}]
+    \item Secant method has superlinear convergence and has a lower cost for each iteration compared to Newton's methods.
+    \item Bisection method has linear convergence if $f(x)$ is continuous within an interval $[a,b]$ such that $f(a)f(b) < 0$.
+    \item Newton's method has quadratic convergence when it is close to the root.
+    \item Of all three methiods, Newton's method has the fastest convergence.
+\end{itemize}
+
+
+
+
+\newpage
+\noindent \textbf{SUMMARY: Newton's method (1-D, N-D, find root, optimization):}
+    \begin{center} \renewcommand\arraystretch{2}
+        \begin{tabular}{ | c | c | c | } 
+              \hline
+               & \textbf{Root/solution finding} & \textbf{Optimization} \\ 
+              \hline
+              \textbf{1D} & $x_{k+1} = x_k - \dfrac{f(x)}{f'(x)}$ & $x_{k+1} = x_k - \dfrac{f'(x)}{f''(x)}$ \\ 
+              \hline
+              \textbf{N-D }& $\mathbf{x}_{k+1} = \mathbf{x}_k - \mathbb{J}(\mathbf{x}_k)^{-1} \cdot f(\mathbf{x}_k)$ & $\mathbf{x}_{k+1} = \mathbf{x}_k - \mathbf{H}(\mathbf{x}_k)^{-1} \cdot \nabla f(\mathbf{x}_k)$\\ 
+              \hline
+        \end{tabular}
+    \end{center}
+    \begin{itemize}
+        \item \textbf{Convergence:} All Newton's methods have quadratic convergence.
+        \item \textbf{Cost:} For each iteration, we need to evaluate 2 functions.
+            \begin{itemize}
+                \item For N-D root finding, the cost of find $\mathbf{s}$ by solving a linear system is $\mathcal{O}(n^3)$; the cost of evaluation Jacobian matrix is $\mathcal{O}(n^2)$
+                \item For N-D optimization, the cost per iteration is $\mathcal{O}(n^3)$, the cost of evaluate Hessian matrix is $\mathcal{O}(n^2)$.
+            \end{itemize}
+        \item \textbf{Drawbacks: }
+            \begin{itemize}
+                \item Function need to be differentiable
+                \item Expensive cost to evaluate the function and derivative
+                \item Only converges locally (and may converges to a maxima or inflection point)
+            \end{itemize}
+        \item \textbf{Concept questions on the exam (only CORRECT statements are listed):}
+            \begin{itemize}[label={\checkmark}]
+                \item Newton's method may fail to find the minimum if the start guess is close to a maximum.
+                \item Newton's method will fail if the second derivative of $f(x)$ at some point $x_i$ is 0.
+                \item Newton's method will not always converge.
+                \item  The cost of solving the nonlinear system of n equations for one iteration is $\mathcal{O}(n^3)$.
+                \item Newton's method for solving $n$ nonlinear equations typically has quadratic convergence when close enough to the root.
+                \item Newthon's method can usually achieve quadratic convergence when the start guess is near the minimum.
+                \item The cost of evaluation Jacobian matrix is $\mathcal{O}(n^2)$
+                \item The cost of calculating the Hessian matrix is $\mathcal{O}(n^2)$
+                \item Newton method needs to evaluate derivatives.
+                \item Newton's method requires two function calls per iteration.
+            \end{itemize}
+    \end{itemize}
+
+
+\end{document}

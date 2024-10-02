@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,geometry,amsmath,hyperref,graphicx,xcolor,amssymb,array,enumitem,minted}
+\usepackage{indentfirst}
+\usepackage[version=4]{mhchem}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\geometry{letterpaper,left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
+
+\begin{document}
+\begin{center}\Large\bf 
+CS 357 - 06 Taylor Series\\
+\end{center}
+\begin{center}
+Boyang Li (boyangl3)
+\end{center}
+
+\medskip
+\noindent \textbf{Degree $\boldsymbol{n}$ polynomial:} Consider a polynomial respect to variable $x$, 
+$$a_{n}x^{n}+a_{n-1}x^{n-1}+ \dots +a_{2}x^{2}+a_{1}x+a_{0}$$
+
+Using the summation notation, we can express the polynomial as $\displaystyle \sum_{k=0}^{n} a_k x^k$.
+
+A polynomial can also be considered as the linear combination of monorails. i.e. $ax^n$ where $a$ is non-zero constant and $n$ is a non-negative integer.
+
+\medskip
+\noindent \textbf{Taylor Series:} Used to approximate function $f(x)$ where $x$ is closed to $x_0$.
+$$f(x) = f(x_0) +\frac{f'(x_0)(x-x_0)}{1!} + \frac{f''(x_0)(x-x_0)^2}{2!}  + \frac{f'''(x_0)(x-x_0)^3}{3!} + \dots = \sum_{k=0}^{\infty} \frac{f^{(k)}(x_0)(x-x_0)^k}{k!}$$
+ 
+There is a special case of Taylor Series, when $x_0 = 0$, the series is called Maclaurin Series: 
+$$f(x) = f(0) +\frac{f'(0)}{1!} + \frac{f''(0)x^2}{2!}  + \frac{f'''(0)x^3}{3!} + \dots = \sum_{k=0}^{\infty} \frac{f^{(k)}(0)x^k}{k!}$$
+
+The infinite Taylor series expansion of any polynomial is the polynomial itself. However, sometimes a function is not infinite differentiable, so we need to truncate the Taylor Series at some point to approximate the function.
+
+\medskip
+\noindent \textbf{Taylor Series at degree $\boldsymbol{n}$:} Just take the first $n+1$ terns of the Taylor Series:
+    $$T_n(x) = f(x_0) +\frac{f'(x_0)(x-x_0)}{1!} + \frac{f''(x_0)(x-x_0)^2}{2!} + \dots = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)(x-x_0)^k}{k!}$$
+
+\medskip
+\noindent \textbf{Taylor Series Error:} 
+    \begin{itemize}
+        \item \textbf{Error bound when truncating:} When $h = |x - x_0| \to 0$, the error bound is
+            $$\left|f(x)-T_n(x)\right|\le C \cdot h^{n+1} = O(h^{n+1})$$
+        \item \textbf{Taylor remainder theorem:} Let $R_n(x)$ denote the difference between $f(x)$ and $T_n(x)$ which centered at $x_0$, then 
+            $$R_n(x) = f(x) - T_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x-x_0)^{n+1}$$
+            for some $\xi$ between $x$ and $x_0$. Thus the constant $C$ mentioned above is $\max\limits_{\xi} \dfrac{\vert f^{(n+1)}(\xi)\vert }{(n+1)!}$.
+        \item \textbf{Asymptotic behavior of the error:} If $e_1 \propto h_1^{n}$ and $e_2 \propto h_2^{n}$, then $e_2 = \left( \dfrac{h_2}{h_1} \right) ^{n}e_1$.
+    \end{itemize}
+    
+\end{document}
